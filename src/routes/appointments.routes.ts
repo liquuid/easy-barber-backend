@@ -13,7 +13,8 @@ appointmentsRouter.post('/', (request, response) => {
     }
 
     appointments.push(appointment);
-    return response.json({ message: 'Wufff Wufff'});
+    
+    return response.json(appointment);
 });
 
  export default appointmentsRouter;
