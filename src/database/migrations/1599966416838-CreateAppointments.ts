@@ -5,13 +5,14 @@ export default class CreateAppointments1599966416838 implements MigrationInterfa
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'appointmens',
+                name: 'appointments',
                 columns: [
                     {
                         name: 'id',
                         type: 'varchar',
                         isPrimary:  true,
-                    generationStrategy: 'uuid'                    },
+                        generationStrategy: 'uuid',
+                        default: 'uuid_generate_v4()'                    },
                     {
                         name: 'provider',
                         type: 'varchar',
