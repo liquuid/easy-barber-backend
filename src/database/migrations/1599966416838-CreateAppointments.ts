@@ -23,6 +23,17 @@ export default class CreateAppointments1599966416838 implements MigrationInterfa
                         // for mongo use only timestamp
                         type: 'timestamp with time zone',
                         isNullable: false,
+                    },
+                    {
+                        name: 'created_at',
+                        type: 'timestamp',
+                        default: 'now()',
+                        isNullable: false,
+                    },
+                    {
+                        name: 'updated_at',
+                        type: 'timestamp',
+                        default: 'now()',
                     }
                 ]
             })
