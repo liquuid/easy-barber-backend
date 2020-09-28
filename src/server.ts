@@ -1,3 +1,4 @@
+import cors from 'cors';
 import 'reflect-metadata';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
@@ -6,7 +7,9 @@ import './database';
 import uploadConfig from './config/upload';
 import AppError from './errors/AppError';
 
+
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(routes);
 
