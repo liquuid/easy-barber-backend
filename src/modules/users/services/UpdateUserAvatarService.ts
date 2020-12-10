@@ -4,16 +4,20 @@ import path from 'path';
 import uploadConfig from '@config/upload';
 import User from '../infra/typeorm/entities/User';
 import AppError from '@shared/errors/AppError';
+import IUserRepository from '../repositories/IUserRepository';
 
-interface Request {
+
+interface IRequest {
     user_id: string;
     avatarFilename: string
 }
 
 class UpdateUserAvatarService {
-    public async execute({ user_id, avatarFilename}: Request): Promise<User> {
-        const userRepository = getRepository(User);
-        const user = await userRepository.findOne(user_id);
+    constructor( private usersRepository: IUserRepository ){}
+
+    public async execute({ user_id, avatarFilename}: IRequest): Promise<User> {
+
+        const user = await this.usersRepository.findById(user_id);
 
         if(!user){
             throw new AppError('Only authenticated users can update avatar', 401);
@@ -27,7 +31,7 @@ class UpdateUserAvatarService {
             }
         }
         user.avatar = avatarFilename;
-        await userRepository.save(user);
+        await this.usersRepository.save(user);
 
         return user;
     }
