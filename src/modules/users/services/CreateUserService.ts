@@ -1,6 +1,7 @@
+import { inject, injectable } from 'tsyringe';
 import { hash } from 'bcryptjs';
 import User from "../infra/typeorm/entities/User";
-import IUserRepository from '../repositories/IUserRepository';
+import IUserRepository from '../repositories/IUsersRepository';
 import AppError from '@shared/errors/AppError';
 
 interface Request{
@@ -8,8 +9,12 @@ interface Request{
     email: string;
     password: string;
 }
+
+@injectable()
 class CreateUserService {
-    constructor( private usersRepository: IUserRepository ){}
+    constructor(
+      @inject('UsersRepository')
+      private usersRepository: IUserRepository ){}
 
     public async execute({name, email, password}: Request): Promise<User>{
 
